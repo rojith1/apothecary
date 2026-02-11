@@ -30,8 +30,10 @@ import {
   Menu,
   X,
   Play,
-  ExternalLink,
+  Sun,
+  Moon,
 } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null);
@@ -64,6 +66,15 @@ function GridPattern() {
         }}
       />
     </div>
+  );
+}
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <Button size="icon" variant="ghost" onClick={toggleTheme} aria-label="Toggle theme" data-testid="button-theme-toggle">
+      {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+    </Button>
   );
 }
 
@@ -103,7 +114,7 @@ function Navbar() {
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md bg-primary/20 border border-primary/30 flex items-center justify-center">
               <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </div>
-            <span className="text-lg sm:text-xl font-bold tracking-tight text-white">
+            <span className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
               APOTHECARY
             </span>
           </a>
@@ -113,7 +124,7 @@ function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="px-3 py-2 text-sm text-muted-foreground hover:text-white transition-colors"
+                className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid={`link-nav-${link.label.toLowerCase()}`}
               >
                 {link.label}
@@ -122,6 +133,7 @@ function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button variant="default" className="hidden sm:flex" data-testid="button-demo">
               <Play className="w-4 h-4 mr-2" />
               See Demo
@@ -129,8 +141,10 @@ function Navbar() {
             <Button
               size="icon"
               variant="ghost"
-              className="lg:hidden text-white"
+              className="lg:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-label="Toggle navigation menu"
               data-testid="button-mobile-menu"
             >
               {mobileOpen ? <X /> : <Menu />}
@@ -153,7 +167,7 @@ function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 text-sm text-muted-foreground hover:text-white transition-colors rounded-md"
+                  className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md"
                   data-testid={`link-mobile-${link.label.toLowerCase()}`}
                 >
                   {link.label}
@@ -263,7 +277,7 @@ function HeroSection() {
               >
                 <ShieldCheck className="w-4 h-4 text-primary" />
                 <div>
-                  <p className="text-xs font-bold text-white">{cert.label}</p>
+                  <p className="text-xs font-bold text-foreground">{cert.label}</p>
                   <p className="text-[10px] text-muted-foreground">{cert.desc}</p>
                 </div>
               </div>
@@ -310,7 +324,7 @@ function UseCasesSection() {
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/10" data-testid="badge-usecases">
             Versatile Applications
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight" data-testid="text-usecases-title">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-usecases-title">
             Use Cases
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -326,7 +340,7 @@ function UseCasesSection() {
                   <img
                     src={uc.image}
                     alt={uc.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover"
                     data-testid={`img-usecase-${i}`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
@@ -337,7 +351,7 @@ function UseCasesSection() {
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="text-lg font-semibold text-white mb-2" data-testid={`text-usecase-title-${i}`}>{uc.title}</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-2" data-testid={`text-usecase-title-${i}`}>{uc.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{uc.desc}</p>
                 </div>
               </Card>
@@ -385,7 +399,7 @@ function FeaturesSection() {
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/10" data-testid="badge-features">
             Core Technology
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight" data-testid="text-features-title">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-features-title">
             Key Features
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -395,12 +409,16 @@ function FeaturesSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           <AnimatedSection>
-            <div className="space-y-3">
+            <div className="space-y-3" role="tablist" aria-label="Key features">
               {features.map((f, i) => (
-                <button
+                <div
                   key={f.title}
                   onClick={() => setActiveFeature(i)}
-                  className={`w-full text-left p-5 rounded-md border transition-all duration-300 ${
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActiveFeature(i); } }}
+                  role="tab"
+                  tabIndex={0}
+                  aria-selected={activeFeature === i}
+                  className={`w-full text-left p-5 rounded-md border transition-all duration-300 cursor-pointer ${
                     activeFeature === i
                       ? "border-primary/50 bg-primary/5"
                       : "border-border/50 bg-card/30 hover-elevate"
@@ -414,7 +432,7 @@ function FeaturesSection() {
                       <f.icon className={`w-5 h-5 ${activeFeature === i ? "text-primary" : "text-muted-foreground"}`} />
                     </div>
                     <div>
-                      <h3 className={`font-semibold mb-1 transition-colors ${activeFeature === i ? "text-white" : "text-muted-foreground"}`}>
+                      <h3 className={`font-semibold mb-1 transition-colors ${activeFeature === i ? "text-foreground" : "text-muted-foreground"}`}>
                         {f.title}
                       </h3>
                       <AnimatePresence mode="wait">
@@ -431,7 +449,7 @@ function FeaturesSection() {
                       </AnimatePresence>
                     </div>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
           </AnimatedSection>
@@ -462,7 +480,7 @@ function FeaturesSection() {
                           const Icon = features[activeFeature].icon;
                           return <Icon className="w-16 h-16 text-primary mx-auto mb-4" />;
                         })()}
-                        <h3 className="text-xl font-bold text-white mb-2">{features[activeFeature].title}</h3>
+                        <h3 className="text-xl font-bold text-foreground mb-2">{features[activeFeature].title}</h3>
                         <p className="text-sm text-muted-foreground max-w-sm mx-auto">{features[activeFeature].desc}</p>
                       </div>
                     </div>
@@ -510,7 +528,7 @@ function DeviceIntegrationSection() {
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/10" data-testid="badge-devices">
             Ecosystem
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight" data-testid="text-devices-title">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-devices-title">
             Device Integration
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -544,10 +562,10 @@ function DeviceIntegrationSection() {
                 className="p-5 text-center border-border/50 bg-card/50 backdrop-blur-sm hover-elevate group"
                 data-testid={`card-device-${i}`}
               >
-                <div className="w-12 h-12 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3 transition-colors group-hover:bg-primary/20">
+                <div className="w-12 h-12 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3">
                   <device.icon className="w-6 h-6 text-primary" />
                 </div>
-                <p className="text-sm font-medium text-white">{device.name}</p>
+                <p className="text-sm font-medium text-foreground">{device.name}</p>
               </Card>
             </AnimatedSection>
           ))}
@@ -576,7 +594,7 @@ function TeamSection() {
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/10" data-testid="badge-team">
             Leadership
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight" data-testid="text-team-title">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-team-title">
             Our Team
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -596,7 +614,7 @@ function TeamSection() {
                     </span>
                   </div>
                 </div>
-                <h3 className="text-sm font-semibold text-white mb-1" data-testid={`text-team-name-${i}`}>{member.name}</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1" data-testid={`text-team-name-${i}`}>{member.name}</h3>
                 <p className="text-xs text-muted-foreground">{member.role}</p>
               </Card>
             </AnimatedSection>
@@ -618,7 +636,7 @@ function VideoSection() {
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/10" data-testid="badge-video">
             Walkthrough
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight" data-testid="text-video-title">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-video-title">
             See APOC in Action
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -656,7 +674,7 @@ function ContactSection() {
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/10" data-testid="badge-contact">
             Get In Touch
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight" data-testid="text-contact-title">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-contact-title">
             Contact Us
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -689,7 +707,7 @@ function ContactSection() {
                 <div className="w-12 h-12 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-4">
                   <item.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
                 {item.lines.map((line, j) => (
                   item.href ? (
                     <a
@@ -723,7 +741,7 @@ function Footer() {
             <div className="w-8 h-8 rounded-md bg-primary/20 border border-primary/30 flex items-center justify-center">
               <Activity className="w-4 h-4 text-primary" />
             </div>
-            <span className="text-lg font-bold text-white tracking-tight">APOTHECARY</span>
+            <span className="text-lg font-bold text-foreground tracking-tight">APOTHECARY</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -731,7 +749,7 @@ function Footer() {
               <a
                 key={link}
                 href={`#${link.toLowerCase().replace(/\s/g, "")}`}
-                className="text-sm text-muted-foreground hover:text-white transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid={`link-footer-${link.toLowerCase().replace(/\s/g, "-")}`}
               >
                 {link}
@@ -794,7 +812,7 @@ function APOCProductsSection() {
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary bg-primary/10" data-testid="badge-products">
             Product Line
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight" data-testid="text-products-title">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-products-title">
             The APOC Platform
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -809,11 +827,11 @@ function APOCProductsSection() {
                 <Badge variant="secondary" className="mb-4" data-testid={`badge-product-tag-${i}`}>
                   {product.tag}
                 </Badge>
-                <h3 className="text-xl font-bold text-white mb-2" data-testid={`text-product-name-${i}`}>{product.name}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2" data-testid={`text-product-name-${i}`}>{product.name}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{product.desc}</p>
                 <div className="mt-4 flex items-center gap-1 text-primary text-sm font-medium">
                   <span>Learn more</span>
-                  <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ChevronRight className="w-4 h-4" />
                 </div>
               </Card>
             </AnimatedSection>
