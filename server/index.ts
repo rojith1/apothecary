@@ -9,6 +9,7 @@ async function start() {
     server: {
       host: "0.0.0.0",
       port: parseInt(process.env.PORT || "5000", 10),
+      allowedHosts: true,
     },
   });
 
