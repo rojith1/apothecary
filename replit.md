@@ -1,19 +1,19 @@
-# The Apothecary - Futuristic Healthcare Landing Page
+# The Apothecary - Premium Healthcare Landing Page
 
 ## Overview
-A futuristic, visually stunning landing page for The Apothecary (theapothecary.co.in), a healthcare technology company focused on emergency medicine, pre-hospital care, and smart ambulance solutions. Content scraped from the original website and reimagined with a cyberpunk/futuristic aesthetic.
+A premium, investor-grade landing page for The Apothecary (theapothecary.co.in), a healthcare technology company focused on emergency medicine, pre-hospital care, and smart ambulance solutions. Features a modern medical-tech design with blue-to-violet gradients, clean typography, and generous whitespace.
 
 ## Current State
-- Fully functional single-page application with all sections
+- Pure React frontend application (no backend/database)
 - Dark mode by default with light/dark theme toggle
-- Futuristic design with cyan/teal color palette, glow effects, grid patterns
-- AI-generated images for all use cases and hero section
+- Premium design with deep navy palette, blue-violet gradients, Inter typography
+- AI-generated images for all use cases and hero section (user plans to replace with originals)
 - Smooth scroll-triggered animations using framer-motion
 
 ## Project Architecture
-- **Frontend**: React + Vite + TailwindCSS + shadcn/ui components
-- **Backend**: Express (minimal - only serves the frontend)
-- **No database needed** - static marketing site
+- **Frontend only**: React + Vite + TailwindCSS + shadcn/ui components
+- **No backend or database** - static marketing site
+- `server/index.ts` is a minimal Vite dev server launcher (not an Express backend)
 
 ### Key Files
 - `client/src/pages/home.tsx` - Main landing page with all sections
@@ -21,6 +21,7 @@ A futuristic, visually stunning landing page for The Apothecary (theapothecary.c
 - `client/src/App.tsx` - Root app with routing and providers
 - `client/src/index.css` - CSS variables for theming
 - `client/public/images/` - AI-generated futuristic images
+- `server/index.ts` - Minimal Vite dev server launcher
 
 ### Sections
 1. Hero with APOC ambulance image and dark wash
@@ -35,11 +36,14 @@ A futuristic, visually stunning landing page for The Apothecary (theapothecary.c
 10. Footer
 
 ## User Preferences
-- Futuristic/cyberpunk aesthetic preferred
+- Modern, aesthetic design appealing to potential investors
 - Dark mode as default theme
+- Premium medical-tech aesthetic (not cyberpunk)
+- User will replace AI-generated images with originals later
 
 ## Recent Changes
-- Initial build: Feb 11, 2026
-- Implemented ThemeProvider with localStorage sync
-- Added accessibility attributes (aria-expanded, role="tablist", aria-selected)
-- Used text-foreground for proper light/dark mode compatibility
+- Feb 13, 2026: Removed all backend/database code (Express, Drizzle, Passport, etc.)
+- Feb 13, 2026: Converted to pure React frontend with Vite dev server
+- Feb 13, 2026: Removed QueryClientProvider, queryClient utilities, shared schema
+- Feb 13, 2026: Design refinements - replaced text-primary with theme-compatible colors
+- Feb 11, 2026: Initial build with ThemeProvider, accessibility attributes
