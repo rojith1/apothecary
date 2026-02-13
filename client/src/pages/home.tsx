@@ -34,6 +34,7 @@ import {
   Moon,
   Check,
   ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 
@@ -862,6 +863,50 @@ function Footer() {
   );
 }
 
+function FloatingButtons() {
+  return (
+    <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
+      {/* WhatsApp Button */}
+      <motion.a
+        href="https://wa.me/919497093393"
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="group relative w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all hover:shadow-xl"
+        style={{ background: "#25D366" }}
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle className="w-7 h-7 text-white" />
+        <span className="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">
+          Chat on WhatsApp
+        </span>
+      </motion.a>
+
+      {/* Email Button */}
+      <motion.a
+        href="mailto:apothecarymedicalservices@gmail.com"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="group relative w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all hover:shadow-xl"
+        style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%), hsl(262, 83%, 58%))" }}
+        aria-label="Send us an email"
+      >
+        <Mail className="w-7 h-7 text-white" />
+        <span className="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">
+          Send us an email
+        </span>
+      </motion.a>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -877,6 +922,7 @@ export default function Home() {
       <ContactSection />
       <CTASection />
       <Footer />
+      <FloatingButtons />
     </div>
   );
 }
