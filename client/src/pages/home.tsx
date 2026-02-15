@@ -35,6 +35,7 @@ import {
   Check,
   ExternalLink,
   MessageCircle,
+  Bike,
 } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 
@@ -66,6 +67,7 @@ function ThemeToggle() {
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -82,6 +84,10 @@ function Navbar() {
     { label: "Contact", href: "#contact" },
   ];
 
+  const handleRequestDemo = () => {
+    window.location.href = "mailto:apothecarymedicalservices@gmail.com?subject=Request%20Demo%20-%20APOC%20Platform&body=Hi,%0D%0A%0D%0AI%20would%20like%20to%20request%20a%20demo%20of%20the%20APOC%20platform.%0D%0A%0D%0AThank%20you.";
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -96,17 +102,11 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 h-16 sm:h-20">
           <a href="#hero" className="flex items-center gap-2.5 flex-shrink-0" data-testid="link-home">
-            <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%), hsl(262, 83%, 58%))" }}>
-              <Activity className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-base font-semibold tracking-tight text-foreground leading-none">
-                APOTHECARY
-              </span>
-              <span className="text-[10px] text-muted-foreground tracking-widest uppercase leading-none mt-0.5">
-                Medical Tech
-              </span>
-            </div>
+            <img 
+              src={theme === "dark" ? "/images/Logo-light.png" : "/images/Logo-Dark.png"}
+              alt="APOTHECARY Medical Tech"
+              className="h-10 w-auto object-contain"
+            />
           </a>
 
           <div className="hidden lg:flex items-center gap-1">
@@ -124,7 +124,12 @@ function Navbar() {
 
           <div className="flex flex-wrap items-center gap-2">
             <ThemeToggle />
-            <Button variant="default" className="hidden sm:flex" data-testid="button-demo">
+            <Button 
+              variant="default" 
+              className="hidden sm:flex" 
+              onClick={handleRequestDemo}
+              data-testid="button-demo"
+            >
               Request Demo
             </Button>
             <Button
@@ -162,7 +167,12 @@ function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <Button variant="default" className="w-full mt-2" data-testid="button-mobile-demo">
+              <Button 
+                variant="default" 
+                className="w-full mt-2" 
+                onClick={handleRequestDemo}
+                data-testid="button-mobile-demo"
+              >
                 Request Demo
               </Button>
             </div>
@@ -258,20 +268,14 @@ function HeroSection() {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="mt-14 flex flex-wrap items-center gap-4"
           >
-            {[
-              { label: "ARAI Certified" },
-              { label: "BIS Certified" },
-              { label: "CE Marked" },
-              { label: "FDA Approved" },
-              { label: "HIPAA Compliant" },
-            ].map((cert) => (
+            {["ARAI Certified", "BIS Certified", "CE Marked", "FDA Approved", "HIPAA Compliant"].map((cert) => (
               <div
-                key={cert.label}
+                key={cert}
                 className="flex items-center gap-1.5 text-white/40 text-xs"
-                data-testid={`badge-cert-${cert.label.toLowerCase().replace(/\s/g, "-")}`}
+                data-testid={`badge-cert-${cert.toLowerCase().replace(/\s/g, "-")}`}
               >
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>{cert.label}</span>
+                <span>{cert}</span>
               </div>
             ))}
           </motion.div>
@@ -329,12 +333,12 @@ function StatsBar() {
 }
 
 const useCases = [
-  { title: "Road Ambulances", icon: Truck, image: "/images/road-ambulance.png", desc: "Advanced connected road ambulances with real-time patient monitoring and AR-enabled diagnostics for rapid pre-hospital care." },
+  { title: "Road Ambulances", icon: Truck, image: "/images/road-ambulance.jpeg", desc: "Advanced connected road ambulances with real-time patient monitoring and AR-enabled diagnostics for rapid pre-hospital care." },
   { title: "Air Ambulances", icon: Plane, image: "/images/air-ambulance.png", desc: "High-altitude medical transport with full ICU capabilities, satellite connectivity, and seamless data relay to hospitals." },
   { title: "Water Ambulances", icon: Ship, image: "/images/water-ambulance.png", desc: "Maritime emergency response vessels equipped with smart medical systems for coastal and offshore rescue operations." },
   { title: "Smart Emergency", icon: Zap, image: "/images/smart-emergency.png", desc: "AI-powered emergency response systems enabling faster triage, automated alerts, and intelligent resource allocation." },
-  { title: "Tele ICU", icon: Monitor, image: "/images/tele-icu.png", desc: "Remote intensive care monitoring platform connecting specialists to patients across multiple locations in real-time." },
   { title: "Smart Clinics", icon: Building2, image: "/images/smart-clinic.png", desc: "Connected outpatient facilities with integrated diagnostics, automated workflows, and cloud-based health records." },
+  { title: "Bike Ambulance", icon: Bike, image: "/images/bike-ambulance.png", desc: "Rapid response bike ambulances for congested urban areas, equipped with essential medical supplies and real-time communication." },
 ];
 
 function UseCasesSection() {
@@ -387,55 +391,7 @@ function UseCasesSection() {
 const products = [
   { name: "APOC Lite", desc: "Compact emergency kit for first responders with essential monitoring and communication tools.", tag: "Portable", number: "01" },
   { name: "APOC Go", desc: "Mobile-ready platform for on-the-go emergency care with cloud-connected diagnostics.", tag: "Mobile", number: "02" },
-  { name: "APOC Cart", desc: "Full-featured wheeled station for hospital corridors and emergency departments.", tag: "Station", number: "03" },
-  { name: "APOC OPD", desc: "Outpatient department solution with integrated patient management and tele-consultation.", tag: "Clinical", number: "04" },
 ];
-
-function APOCProductsSection() {
-  return (
-    <section id="products" className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-muted/30" />
-
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04]"
-          style={{ background: "radial-gradient(circle, hsl(262, 83%, 58%) 0%, transparent 70%)" }}
-        />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-16">
-          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-products">The Platform</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-products-title">
-            Four Products. One Mission.
-          </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-            Every APOC variant is purpose-built for its environment — from compact field kits to full clinical workstations.
-          </p>
-        </AnimatedSection>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product, i) => (
-            <AnimatedSection key={product.name} delay={i * 0.1}>
-              <Card className="p-6 border-border bg-card hover-elevate group relative h-full" data-testid={`card-product-${i}`}>
-                <span className="text-5xl font-bold text-muted/80 absolute top-4 right-5 select-none">{product.number}</span>
-                <Badge variant="secondary" className="mb-4 relative" data-testid={`badge-product-tag-${i}`}>
-                  {product.tag}
-                </Badge>
-                <h3 className="text-xl font-bold text-foreground mb-2 relative" data-testid={`text-product-name-${i}`}>{product.name}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed relative">{product.desc}</p>
-                <div className="mt-5 flex items-center gap-1 text-foreground text-sm font-medium relative">
-                  <span>Learn more</span>
-                  <ChevronRight className="w-4 h-4" />
-                </div>
-              </Card>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 const features = [
   {
@@ -690,11 +646,30 @@ function VideoSection() {
 }
 
 const teamMembers = [
-  { name: "Dr Nadeem Shah Hamzath T A", role: "Founder CEO & MD", initials: "NS" },
-  { name: "Muneeb Abdul Majeed", role: "Director - Operations", initials: "MA" },
-  { name: "Hyder Shehansha T A", role: "Director - Marketing", initials: "HS" },
-  { name: "Afritha Syed", role: "Manager - Finance", initials: "AS" },
-  { name: "Murshida Muneeb", role: "Chief - Paramedic", initials: "MM" },
+  { 
+    name: "Dr Nadeem Shah", 
+    role: "Founder CEO & MD", 
+    initials: "NS",
+    image: "/images/team/nadeem.jpeg"
+  },
+  { 
+    name: "Muneeb Abdul Majeed", 
+    role: "Director - Operations", 
+    initials: "MA",
+    image: "/images/team/muneeb.jpeg"
+  },
+  { 
+    name: "Hyder Shehansha T A", 
+    role: "Director - Marketing", 
+    initials: "HS",
+    image: "/images/team/hyder.jpeg"
+  },
+  { 
+    name: "Adithyan Satheeshkumar", 
+    role: "Chief Operating Officer", 
+    initials: "AS",
+    image: "/images/team/adithyan.jpeg"
+  },
 ];
 
 function TeamSection() {
@@ -713,18 +688,44 @@ function TeamSection() {
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {teamMembers.map((member, i) => (
             <AnimatedSection key={member.name} delay={i * 0.08}>
-              <Card className="p-6 text-center border-border bg-card hover-elevate group" data-testid={`card-team-${i}`}>
-                <div className="relative w-16 h-16 rounded-full mx-auto mb-4 overflow-hidden">
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%), hsl(262, 83%, 58%))" }} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-lg font-semibold text-white">{member.initials}</span>
+              <Card className="overflow-hidden border-border bg-card hover-elevate group h-full" data-testid={`card-team-${i}`}>
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    onLoad={(e) => {
+                      console.log(`✅ Image loaded: ${member.image}`);
+                      const target = e.target as HTMLImageElement;
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'none';
+                    }}
+                    onError={(e) => {
+                      console.error(`❌ Image failed to load: ${member.image}`);
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                    data-testid={`img-team-${i}`}
+                  />
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center"
+                    style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%), hsl(262, 83%, 58%))" }}
+                  >
+                    <span className="text-4xl font-bold text-white">{member.initials}</span>
                   </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-60" />
                 </div>
-                <h3 className="text-sm font-semibold text-foreground mb-1 leading-tight" data-testid={`text-team-name-${i}`}>{member.name}</h3>
-                <p className="text-xs text-muted-foreground">{member.role}</p>
+                <div className="p-5 text-center">
+                  <h3 className="text-base font-semibold text-foreground mb-1 leading-tight" data-testid={`text-team-name-${i}`}>
+                    {member.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{member.role}</p>
+                </div>
               </Card>
             </AnimatedSection>
           ))}
@@ -733,6 +734,24 @@ function TeamSection() {
     </section>
   );
 }
+
+const contactInfo = [
+  {
+    title: "Visit Us",
+    icon: MapPin,
+    content: "Kochi, Kerala, India",
+  },
+  {
+    title: "Call Us",
+    icon: Phone,
+    content: "+91 9497 093 393",
+  },
+  {
+    title: "Email Us",
+    icon: Mail,
+    content: "info@theapothecary.co.in",
+  },
+];
 
 function ContactSection() {
   return (
@@ -749,45 +768,14 @@ function ContactSection() {
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {[
-            {
-              icon: MapPin,
-              title: "Visit Us",
-              lines: ["APOTHECARY MEDICAL SERVICES LLP", "METAVALLEY TBI, MARAMPILLY", "ALUVA, KERALA 683105"],
-            },
-            {
-              icon: Phone,
-              title: "Call Us",
-              lines: ["+91 9037 393 393"],
-              href: "tel:+919037393393",
-            },
-            {
-              icon: Mail,
-              title: "Email Us",
-              lines: ["info@theapothecary.co.in"],
-              href: "mailto:info@theapothecary.co.in",
-            },
-          ].map((item, i) => (
+          {contactInfo.map((item, i) => (
             <AnimatedSection key={item.title} delay={i * 0.1}>
               <Card className="p-6 text-center border-border bg-card hover-elevate" data-testid={`card-contact-${i}`}>
                 <div className="w-12 h-12 rounded-md bg-accent flex items-center justify-center mx-auto mb-4">
                   <item.icon className="w-5 h-5 text-foreground" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-3">{item.title}</h3>
-                {item.lines.map((line, j) => (
-                  item.href ? (
-                    <a
-                      key={j}
-                      href={item.href}
-                      className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      data-testid={`link-contact-${item.title.toLowerCase().replace(/\s/g, "-")}`}
-                    >
-                      {line}
-                    </a>
-                  ) : (
-                    <p key={j} className="text-sm text-muted-foreground leading-relaxed">{line}</p>
-                  )
-                ))}
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.content}</p>
               </Card>
             </AnimatedSection>
           ))}
@@ -798,6 +786,21 @@ function ContactSection() {
 }
 
 function CTASection() {
+  const handleDownloadBrochure = () => {
+    // Create a temporary link element to trigger download
+    const link = document.createElement('a');
+    link.href = '/APOC.pdf'; // PDF in public folder
+    link.download = 'APOC-Brochure.pdf'; // Suggested filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleScheduleMeeting = () => {
+    const calendlyUrl = "https://calendly.com/nadeem-sha-786/demo?email=nadeem.sha.786@gmail.com&notes=Hey%20can%20i%20have%20a%20demo";
+    window.open(calendlyUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
       <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(262, 83%, 58%) 100%)" }} />
@@ -814,11 +817,23 @@ function CTASection() {
             Join us in building the future of emergency medicine. Whether you're an investor, hospital, or government body — let's save lives together.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white" data-testid="button-cta-schedule">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              onClick={handleScheduleMeeting}
+              className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20" 
+              data-testid="button-cta-schedule"
+            >
               Schedule a Meeting
               <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
-            <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white" data-testid="button-cta-download">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              onClick={handleDownloadBrochure}
+              className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20" 
+              data-testid="button-cta-download"
+            >
               Download Brochure
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
@@ -864,6 +879,10 @@ function Footer() {
 }
 
 function FloatingButtons() {
+  const handleEmailClick = () => {
+    window.open("mailto:apothecarymedicalservices@gmail.com?subject=Inquiry%20from%20Apothecary%20Website", "_self");
+  };
+
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
       {/* WhatsApp Button */}
@@ -887,14 +906,15 @@ function FloatingButtons() {
       </motion.a>
 
       {/* Email Button */}
-      <motion.a
-        href="mailto:apothecarymedicalservices@gmail.com"
+      <motion.button
+        onClick={handleEmailClick}
+        type="button"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.6 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        className="group relative w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all hover:shadow-xl"
+        className="group relative w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all hover:shadow-xl cursor-pointer"
         style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%), hsl(262, 83%, 58%))" }}
         aria-label="Send us an email"
       >
@@ -902,7 +922,7 @@ function FloatingButtons() {
         <span className="absolute right-16 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap">
           Send us an email
         </span>
-      </motion.a>
+      </motion.button>
     </div>
   );
 }
@@ -914,7 +934,6 @@ export default function Home() {
       <HeroSection />
       <StatsBar />
       <UseCasesSection />
-      <APOCProductsSection />
       <FeaturesSection />
       <DeviceIntegrationSection />
       <VideoSection />
