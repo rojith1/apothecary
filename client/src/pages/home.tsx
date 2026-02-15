@@ -29,9 +29,6 @@ import {
   MapPin,
   Menu,
   X,
-  Play,
-  Sun,
-  Moon,
   Check,
   ExternalLink,
   MessageCircle,
@@ -55,15 +52,6 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
   );
 }
 
-function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  return (
-    <Button size="icon" variant="ghost" onClick={toggleTheme} aria-label="Toggle theme" data-testid="button-theme-toggle">
-      {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-    </Button>
-  );
-}
-
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -76,17 +64,14 @@ function Navbar() {
   }, []);
 
   const navLinks = [
+    { label: "Products", href: "#products" },
     { label: "Solutions", href: "#usecases" },
-    { label: "Platform", href: "#products" },
     { label: "Technology", href: "#features" },
     { label: "Ecosystem", href: "#devices" },
     { label: "Team", href: "#team" },
+    { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
   ];
-
-  const handleRequestDemo = () => {
-    window.location.href = "mailto:apothecarymedicalservices@gmail.com?subject=Request%20Demo%20-%20APOC%20Platform&body=Hi,%0D%0A%0D%0AI%20would%20like%20to%20request%20a%20demo%20of%20the%20APOC%20platform.%0D%0A%0D%0AThank%20you.";
-  };
 
   return (
     <motion.nav
@@ -123,15 +108,6 @@ function Navbar() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <ThemeToggle />
-            <Button 
-              variant="default" 
-              className="hidden sm:flex" 
-              onClick={handleRequestDemo}
-              data-testid="button-demo"
-            >
-              Request Demo
-            </Button>
             <Button
               size="icon"
               variant="ghost"
@@ -167,14 +143,6 @@ function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <Button 
-                variant="default" 
-                className="w-full mt-2" 
-                onClick={handleRequestDemo}
-                data-testid="button-mobile-demo"
-              >
-                Request Demo
-              </Button>
             </div>
           </motion.div>
         )}
@@ -245,22 +213,6 @@ function HeroSection() {
             Apothecary utilizes cutting-edge technology to transform emergency medicine,
             pre-hospital care, and save lives through our flagship APOC platform.
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <Button size="lg" data-testid="button-learn-more">
-              Explore Platform
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-            <Button size="lg" variant="outline" className="backdrop-blur-sm bg-white/5 border-white/15 text-white no-default-hover-elevate no-default-active-elevate" data-testid="button-contact">
-              <Play className="w-4 h-4 mr-2" />
-              Watch Demo
-            </Button>
-          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -389,6 +341,132 @@ function UseCasesSection() {
 }
 
 const products = [
+  { 
+    name: "APOC Lite", 
+    desc: "Browser-based collaboration platform with video calling, remote camera management, and real-time assistance. No app installation required - works on any device with HD video quality even in low-bandwidth environments.",
+    tag: "Portable", 
+    number: "01",
+    features: [
+      "One-to-one and conference video calls",
+      "Remote camera management (zoom, pictures, flashlight)",
+      "Screenshot annotations & instant messaging",
+      "Location sharing & presence list",
+      "HIPAA-Compliant with E2E encryption"
+    ]
+  },
+  { 
+    name: "APOC Emergency Department", 
+    desc: "Complete emergency care solution combining cutting-edge diagnostic devices, smart glasses, and industrial connectivity for real-time patient monitoring and specialist support.",
+    tag: "Advanced", 
+    number: "02",
+    features: [
+      "Real-time patient monitoring",
+      "Centralized data management",
+      "Seamless EHR integration",
+      "Early specialist support",
+      "Smart decision-making tools"
+    ]
+  },
+];
+
+function ProductsServicesSection() {
+  return (
+    <section id="products" className="relative py-24 sm:py-32 overflow-hidden bg-accent/5">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection className="text-center mb-16">
+          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-products">
+            Products & Services
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-products-title">
+            What is APOC?
+          </h2>
+          <p className="mt-4 text-muted-foreground max-w-3xl mx-auto text-lg leading-relaxed">
+            APOC offers a revolutionary Assisted Reality medical solution that combines cutting-edge diagnostic devices, 
+            smart glasses, and industrial connectivity. Our integrated platform enables real-time patient monitoring, 
+            centralized data management, and seamless integration with existing systems.
+          </p>
+        </AnimatedSection>
+
+        {/* Problem Statement */}
+        <AnimatedSection delay={0.2} className="mb-20">
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-foreground mb-8 text-center">The Problem We Solve</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { step: "01", title: "Critical Patients", desc: "Critically ill patients in remote emergency departments" },
+                { step: "02", title: "No Specialist Support", desc: "Lack of specialist support and improper treatment" },
+                { step: "03", title: "Scoop and Run", desc: "Transport in normal ambulance/own vehicle without care" },
+                { step: "04", title: "Preventable Deaths", desc: "Death on the way or after reaching hospital" }
+              ].map((item, i) => (
+                <div key={i} className="relative">
+                  <Card className="p-5 border-border bg-card h-full">
+                    <div className="text-4xl font-bold text-primary/20 mb-2">{item.step}</div>
+                    <h4 className="font-semibold text-foreground mb-2">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </Card>
+                  {i < 3 && (
+                    <div className="hidden lg:block absolute top-1/2 -right-2 transform -translate-y-1/2 z-10">
+                      <ArrowRight className="w-4 h-4 text-primary" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </AnimatedSection>
+
+        {/* APOC Solutions */}
+        <AnimatedSection delay={0.3}>
+          <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Our Solutions</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {products.map((product, i) => (
+              <Card key={i} className="p-8 border-border bg-card hover-elevate" data-testid={`card-product-${i}`}>
+                <div className="flex items-start justify-between mb-4">
+                  <Badge variant="outline" className="text-xs">{product.tag}</Badge>
+                  <span className="text-5xl font-bold text-primary/10">{product.number}</span>
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-3">{product.name}</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">{product.desc}</p>
+                <div className="space-y-2">
+                  {product.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            ))}
+          </div>
+        </AnimatedSection>
+
+        {/* Key Benefits */}
+        <AnimatedSection delay={0.4} className="mt-20">
+          <div className="max-w-4xl mx-auto text-center">
+            <h3 className="text-2xl font-bold text-foreground mb-6">APOC Addresses Critical Issues</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                "Inadequate fluid resuscitation",
+                "Airway management",
+                "Hemorrhage control",
+                "Decision making support",
+                "Surgical interventions",
+                "Early specialist support"
+              ].map((benefit, i) => (
+                <div key={i} className="flex items-center gap-2 justify-center">
+                  <ShieldCheck className="w-4 h-4 text-primary flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">{benefit}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+const oldProducts = [
   { name: "APOC Lite", desc: "Compact emergency kit for first responders with essential monitoring and communication tools.", tag: "Portable", number: "01" },
   { name: "APOC Go", desc: "Mobile-ready platform for on-the-go emergency care with cloud-connected diagnostics.", tag: "Mobile", number: "02" },
 ];
@@ -613,33 +691,54 @@ function DeviceIntegrationSection() {
 }
 
 function VideoSection() {
+  const videos = [
+    {
+      id: "9rk4I4TkysM",
+      title: "India's 1st AR Enabled 5G Smart Ambulance",
+      description: "Revolutionary AR-enabled emergency response system"
+    },
+    {
+      id: "H9m2jRwBo4g",
+      title: "5G Ambulance Technology",
+      description: "Next-generation connectivity for emergency care"
+    }
+  ];
+
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-10">
           <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-video">Walkthrough</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-video-title">
             See APOC in Action
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-            India's 1st AR Enabled 5G Smart Ambulance
+            India's 1st AR Enabled 5G Smart Ambulance Technology
           </p>
         </AnimatedSection>
 
-        <AnimatedSection delay={0.2}>
-          <Card className="border-border bg-card overflow-hidden" data-testid="card-video">
-            <div className="aspect-video relative">
-              <iframe
-                src="https://www.youtube.com/embed/9rk4I4TkysM"
-                title="India's 1st AR Enabled 5G Smart Ambulance"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-                data-testid="video-walkthrough"
-              />
-            </div>
-          </Card>
-        </AnimatedSection>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-12">
+          {videos.map((video, index) => (
+            <AnimatedSection key={video.id} delay={0.2 + index * 0.1}>
+              <Card className="border-border bg-card overflow-hidden" data-testid={`card-video-${index}`}>
+                <div className="aspect-video relative">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.id}`}
+                    title={video.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                    data-testid={`video-${index}`}
+                  />
+                </div>
+                <div className="p-4 border-t border-border">
+                  <h3 className="font-semibold text-foreground mb-1">{video.title}</h3>
+                  <p className="text-sm text-muted-foreground">{video.description}</p>
+                </div>
+              </Card>
+            </AnimatedSection>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -740,6 +839,7 @@ const contactInfo = [
     title: "Visit Us",
     icon: MapPin,
     content: "Kochi, Kerala, India",
+    link: "https://www.google.com/maps/place/Apothecary+Medical+Services/@10.1059165,76.4138307,687m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3b0809ebd659abe9:0xa2aa473c397d2e07!8m2!3d10.1059165!4d76.4138307!16s%2Fg%2F11kqc_lxjl!17m2!4m1!1e3!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D",
   },
   {
     title: "Call Us",
@@ -768,17 +868,41 @@ function ContactSection() {
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {contactInfo.map((item, i) => (
-            <AnimatedSection key={item.title} delay={i * 0.1}>
-              <Card className="p-6 text-center border-border bg-card hover-elevate" data-testid={`card-contact-${i}`}>
+          {contactInfo.map((item, i) => {
+            const CardContent = (
+              <>
                 <div className="w-12 h-12 rounded-md bg-accent flex items-center justify-center mx-auto mb-4">
                   <item.icon className="w-5 h-5 text-foreground" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-3">{item.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.content}</p>
-              </Card>
-            </AnimatedSection>
-          ))}
+                <p className="text-sm text-muted-foreground leading-relaxed flex items-center justify-center gap-1">
+                  {item.content}
+                  {item.link && <ExternalLink className="w-3 h-3 opacity-50" />}
+                </p>
+              </>
+            );
+
+            return (
+              <AnimatedSection key={item.title} delay={i * 0.1}>
+                {item.link ? (
+                  <a 
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Card className="p-6 text-center border-border bg-card hover-elevate cursor-pointer transition-transform hover:scale-105" data-testid={`card-contact-${i}`}>
+                      {CardContent}
+                    </Card>
+                  </a>
+                ) : (
+                  <Card className="p-6 text-center border-border bg-card hover-elevate" data-testid={`card-contact-${i}`}>
+                    {CardContent}
+                  </Card>
+                )}
+              </AnimatedSection>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -794,11 +918,6 @@ function CTASection() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const handleScheduleMeeting = () => {
-    const calendlyUrl = "https://calendly.com/nadeem-sha-786/demo?email=nadeem.sha.786@gmail.com&notes=Hey%20can%20i%20have%20a%20demo";
-    window.open(calendlyUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -820,16 +939,6 @@ function CTASection() {
             <Button 
               size="lg" 
               variant="outline" 
-              onClick={handleScheduleMeeting}
-              className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20" 
-              data-testid="button-cta-schedule"
-            >
-              Schedule a Meeting
-              <ExternalLink className="w-4 h-4 ml-2" />
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
               onClick={handleDownloadBrochure}
               className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20" 
               data-testid="button-cta-download"
@@ -845,22 +954,25 @@ function CTASection() {
 }
 
 function Footer() {
+  const { theme } = useTheme();
+  
   return (
     <footer className="relative border-t border-border py-12 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%), hsl(262, 83%, 58%))" }}>
-              <Activity className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-base font-semibold text-foreground tracking-tight">APOTHECARY</span>
-          </div>
+          <a href="#hero" className="flex items-center gap-2.5">
+            <img 
+              src={theme === "dark" ? "/images/Logo-light.png" : "/images/Logo-Dark.png"}
+              alt="APOTHECARY Medical Tech"
+              className="h-10 w-auto object-contain"
+            />
+          </a>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            {["Solutions", "Platform", "Technology", "Ecosystem", "Team", "Contact"].map((link) => (
+            {["Products", "Solutions", "Technology", "Ecosystem", "Team", "Testimonials", "Contact"].map((link) => (
               <a
                 key={link}
-                href={`#${link === "Solutions" ? "usecases" : link === "Platform" ? "products" : link === "Technology" ? "features" : link === "Ecosystem" ? "devices" : link.toLowerCase()}`}
+                href={`#${link === "Products" ? "products" : link === "Solutions" ? "usecases" : link === "Technology" ? "features" : link === "Ecosystem" ? "devices" : link.toLowerCase()}`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid={`link-footer-${link.toLowerCase()}`}
               >
@@ -879,8 +991,26 @@ function Footer() {
 }
 
 function FloatingButtons() {
+  const [showEmailNotification, setShowEmailNotification] = useState(false);
+
   const handleEmailClick = () => {
-    window.open("mailto:apothecarymedicalservices@gmail.com?subject=Inquiry%20from%20Apothecary%20Website", "_self");
+    const email = "apothecarymedicalservices@gmail.com";
+    const subject = "Inquiry from Apothecary Website";
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+    
+    // Try to open mailto
+    window.open(mailtoLink, '_self');
+    
+    // Copy email to clipboard and show notification
+    try {
+      navigator.clipboard.writeText(email);
+      setShowEmailNotification(true);
+      setTimeout(() => setShowEmailNotification(false), 4000);
+    } catch (err) {
+      // Even if clipboard fails, still show the notification with the email
+      setShowEmailNotification(true);
+      setTimeout(() => setShowEmailNotification(false), 4000);
+    }
   };
 
   return (
@@ -923,7 +1053,115 @@ function FloatingButtons() {
           Send us an email
         </span>
       </motion.button>
+      
+      {/* Email notification overlay */}
+      <AnimatePresence>
+        {showEmailNotification && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            className="fixed bottom-6 right-24 z-[9999] bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl max-w-md"
+          >
+            <div className="flex items-start gap-3">
+              <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-semibold">Email Copied!</div>
+                <div className="text-sm text-white/90">apothecarymedicalservices@gmail.com</div>
+                <div className="text-xs text-white/75 mt-1">Paste it in your email app</div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
+  );
+}
+
+const testimonials = [
+  {
+    name: "Shashi Tharoor",
+    title: "Member of Parliament",
+    image: "https://theapothecary.co.in/wp-content/uploads/2023/05/Sasi-Tharoor.jpg",
+    quote: "India's First Initiative that too from Kerala is indeed a matter of pride for me to inaugurate. Especially being a Malayalee. I wholeheartedly commend Apothecary Medical Services for their exceptional use of health technology to improve the lives of people. Their dedication to leveraging innovation for the betterment of society, while upholding ethical principles, is truly laudable. Through their pioneering efforts, Apothecary has demonstrated that technology, when used responsibly and with compassion, has the potential to transform healthcare and positively impact countless lives.",
+    rating: 5
+  },
+  {
+    name: "Dr. Azad Moopen",
+    title: "Chairman, Aster DM Healthcare",
+    image: "",
+    quote: "Aster Group takes great pride in the association with Apothecary Medical Services led by Dr Nadeem. The innovation they have brought to emergency medicine aligns perfectly with our mission to deliver quality healthcare that is accessible, affordable, and compassionate. Apothecary's contributions have not only strengthened the emergency healthcare services within the Aster Group but have also raised the bar for the entire industry, inspiring others to strive for excellence.",
+    rating: 5
+  },
+  {
+    name: "Farhan Yasin",
+    title: "Vice President, Aster India",
+    image: "https://theapothecary.co.in/wp-content/uploads/2023/05/Farhan-Yasin.jpg",
+    quote: "I am delighted to share my heartfelt appreciation for Apothecary and the immense pride I feel for having given them the opportunity to bring their dream to life. Their commitment to empowering individuals and nurturing innovation is truly admirable. I am incredibly proud to be associated with Apothecary and to be a reason to share their vision with the world. Together, we are making a difference and ensuring that no dream goes unheard.",
+    rating: 5
+  },
+  {
+    name: "Sreekandan Nair",
+    title: "Managing Director, Flowers Channel",
+    image: "",
+    quote: "I am delighted to express my sincere appreciation for the incredible work done by Dr. Nadeem and his team at Apothecary in bringing a technology start-up that caters to people in remote areas, especially in the context of high road accidents. Their dedication to utilizing technology for the betterment of healthcare in these underserved regions is truly commendable.",
+    rating: 5
+  }
+];
+
+function TestimonialsSection() {
+  return (
+    <section id="testimonials" className="relative py-24 sm:py-32 overflow-hidden">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection className="text-center mb-16">
+          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-testimonials">
+            Testimonials
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-testimonials-title">
+            What Leaders Say
+          </h2>
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+            Hear from industry leaders and healthcare pioneers about their experience with APOC
+          </p>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {testimonials.map((testimonial, i) => (
+            <AnimatedSection key={i} delay={i * 0.1}>
+              <Card className="p-6 border-border bg-card hover-elevate h-full flex flex-col" data-testid={`card-testimonial-${i}`}>
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="flex-shrink-0">
+                    {testimonial.image ? (
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-16 h-16 rounded-full object-cover border-2 border-border"
+                      />
+                    ) : (
+                      <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-foreground font-semibold text-xl">
+                        {testimonial.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-foreground text-lg">{testimonial.name}</h3>
+                    <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                    <div className="flex gap-1 mt-2">
+                      {[...Array(testimonial.rating)].map((_, idx) => (
+                        <span key={idx} className="text-yellow-500">★</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground leading-relaxed text-sm flex-1">
+                  "{testimonial.quote}"
+                </p>
+              </Card>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -933,11 +1171,13 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <StatsBar />
+      <ProductsServicesSection />
       <UseCasesSection />
       <FeaturesSection />
       <DeviceIntegrationSection />
       <VideoSection />
       <TeamSection />
+      <TestimonialsSection />
       <ContactSection />
       <CTASection />
       <Footer />
