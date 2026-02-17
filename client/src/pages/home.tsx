@@ -64,13 +64,13 @@ function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "About", href: "#about" },
+    { label: "About", href: "/about-us" },
     { label: "Products", href: "#products" },
     { label: "Solutions", href: "#usecases" },
     { label: "Technology", href: "#features" },
     { label: "Ecosystem", href: "#devices" },
     { label: "Team", href: "#team" },
-    { label: "Testimonials", href: "#testimonials" },
+    { label: "Testimonials", href: "/testimonials" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -87,11 +87,17 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 h-16 sm:h-20">
-          <a href="#hero" className="flex items-center gap-2.5 flex-shrink-0" data-testid="link-home">
+          <a href="#hero" className="flex items-center gap-3 flex-shrink-0" data-testid="link-home">
             <img 
               src={theme === "dark" ? "/images/Logo-light.png" : "/images/Logo-Dark.png"}
               alt="APOTHECARY Medical Tech"
               className="h-10 w-auto object-contain"
+            />
+            <div className="h-6 w-px bg-white/20" />
+            <img 
+              src="/images/Logo-Icon.png"
+              alt="APOTHECARY Icon"
+              className="h-7 w-auto object-contain opacity-60"
             />
           </a>
 
@@ -175,6 +181,10 @@ function HeroSection() {
           className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full opacity-[0.05]"
           style={{ background: "radial-gradient(circle, hsl(262, 83%, 58%) 0%, transparent 70%)" }}
         />
+        {/* Subtle power logo in background */}
+        <div className="absolute bottom-20 right-20 opacity-[0.02]">
+          <img src="/images/Logo-Icon.png" alt="" className="w-64 h-64" />
+        </div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 w-full">
@@ -211,8 +221,8 @@ function HeroSection() {
             className="mt-6 text-lg sm:text-xl text-white/60 max-w-lg leading-relaxed"
             data-testid="text-hero-description"
           >
-            Apothecary utilizes cutting-edge technology to transform emergency medicine,
-            pre-hospital care, and save lives through our flagship APOC platform.
+            Every second counts in an emergency. APOC brings specialist care to patients instantly — 
+            wherever they are — through advanced AR technology, 5G connectivity, and real-time medical intelligence.
           </motion.p>
 
           <motion.div
@@ -253,117 +263,31 @@ function HeroSection() {
   );
 }
 
-function AboutSection() {
+function MissionSection() {
   return (
-    <section id="about" className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-16">
-          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-about">
-            About Us
-          </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-about-title">
-            Our Story
+    <section className="relative py-20 sm:py-24 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/30 to-background" />
+      
+      {/* Power Logo Background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none">
+        <img src="/images/Logo-Icon.png" alt="" className="w-96 h-96" />
+      </div>
+      
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <AnimatedSection>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm mb-6">
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-sm font-medium text-primary">Our Mission</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-6 leading-tight">
+            Bridging the Gap Between Emergency and Expert Care
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-3xl mx-auto text-lg leading-relaxed">
-            Apothecary is a brand committed to utilizing technological advancements to transform emergency medicine, 
-            pre-hospital care and ultimately save lives.
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            Globally, millions die from delayed or inadequate pre hospital care.
           </p>
-        </AnimatedSection>
-
-        {/* Company Story */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-          <AnimatedSection delay={0.2}>
-            <Card className="p-8 border-border bg-card h-full">
-              <div className="mb-4">
-                <Badge variant="outline" className="mb-4">Founded May 2021</Badge>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Born During Covid-19</h3>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  Apothecary Medical Services is an independent firm formed in the wake of the second wave 
-                  of Covid-19 pandemic in May 2021. Our first project kicked off at Beypore constituency, 
-                  Calicut, Kerala, serving people who had no access to specialty centers.
-                </p>
-                <p>
-                  The project was launched under the mentorship of Shri. Mohammed Riyaz (Hon. Minister of Kerala), 
-                  by providing free healthcare services in his constituency for a period of one month.
-                </p>
-                <p>
-                  The project gained popularity and gathered media's attention across Kerala. It was personally 
-                  appreciated by the Chief Minister of Kerala, Shri. Pinarayi Vijayan via Shri. Mohammed Riyaz 
-                  for saving lives of patients with serious health hazards like post-covid stroke, heart attack, 
-                  and pneumonia.
-                </p>
-              </div>
-            </Card>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.3}>
-            <Card className="p-8 border-border bg-card h-full">
-              <div className="mb-4">
-                <Badge variant="outline" className="mb-4">Registered 15 Nov 2021</Badge>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground mb-4">Innovation & Research</h3>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  The company was officially registered under the Central Ministry on 15 November 2021. 
-                  After 2 years of intensive research and development, we have successfully developed 
-                  a fully functioning solution named APOC which is expected to revolutionize healthcare.
-                </p>
-                <p>
-                  As a company led by a doctor and entrepreneurs who are associated with the healthcare industry, 
-                  we specifically focus on exploring research-based products and developments in the medical field 
-                  with futuristic ideas.
-                </p>
-                <div className="mt-6 pt-6 border-t border-border">
-                  <h4 className="font-semibold text-foreground mb-3">Our Focus</h4>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                      <span className="text-sm">Research-based medical products</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                      <span className="text-sm">Futuristic healthcare solutions</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                      <span className="text-sm">Emergency medicine transformation</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                      <span className="text-sm">Pre-hospital care innovation</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </Card>
-          </AnimatedSection>
-        </div>
-
-        {/* Certifications */}
-        <AnimatedSection delay={0.4}>
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-foreground mb-2">Certifications & Compliance</h3>
-            <p className="text-muted-foreground">Our solutions and devices are globally recognized and certified</p>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            {[
-              { name: "ARAI Certified", abbr: "ARAI" },
-              { name: "BIS Certified", abbr: "BIS" },
-              { name: "CE Marked", abbr: "CE" },
-              { name: "FDA Approved", abbr: "FDA" },
-              { name: "HIPAA Compliant", abbr: "HIPAA" }
-            ].map((cert, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 px-4 py-3 rounded-lg border border-border bg-card/50 hover:bg-card transition-colors"
-              >
-                <ShieldCheck className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-foreground">{cert.name}</span>
-              </div>
-            ))}
-          </div>
+          <p className="text-lg text-foreground font-medium">
+            We're changing that — bringing hospital-grade expertise directly to the point of emergency.
+          </p>
         </AnimatedSection>
       </div>
     </section>
@@ -379,7 +303,7 @@ function StatsBar() {
   ];
 
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section className="relative py-16 overflow-hidden">
       <div className="absolute inset-0 bg-muted/50" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -416,13 +340,15 @@ function UseCasesSection() {
     <section id="usecases" className="relative py-24 sm:py-32 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="mb-16">
-          <div className="max-w-xl">
-            <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-usecases">Solutions</p>
+          <div className="max-w-3xl">
+            <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-usecases">Where APOC Works</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-usecases-title">
-              Built for Every Emergency Scenario
+              Emergency Care, Everywhere
             </h2>
             <p className="mt-4 text-muted-foreground text-lg leading-relaxed">
-              Our APOC platform adapts seamlessly across road, air, and water — delivering critical care wherever it's needed.
+              From congested city streets to remote mountain villages, from the Arabian Sea to the Himalayas — 
+              APOC works wherever emergencies happen. Our platform seamlessly adapts across every mode of transport 
+              and care setting, ensuring no patient is beyond the reach of expert medical attention.
             </p>
           </div>
         </AnimatedSection>
@@ -460,16 +386,18 @@ function UseCasesSection() {
 
 const products = [
   { 
-    name: "APOC Lite", 
-    desc: "Browser-based collaboration platform with video calling, remote camera management, and real-time assistance. No app installation required - works on any device with HD video quality even in low-bandwidth environments.",
-    tag: "Portable", 
+    name: "APOC Triage One – AI-Powered Emergency Triage Documentation", 
+    desc: "Voice-to-text solution that converts physicians' spoken input into structured triage documentation in real time, reducing manual entry and saving critical time.",
+    tag: "AI-Powered", 
     number: "01",
     features: [
-      "One-to-one and conference video calls",
-      "Remote camera management (zoom, pictures, flashlight)",
-      "Screenshot annotations & instant messaging",
-      "Location sharing & presence list",
-      "HIPAA-Compliant with E2E encryption"
+      "Voice-to-Text for Emergency Forms - Converts physicians' spoken input into structured triage documentation in real time, reducing manual entry and saving critical time",
+      "Medical-Grade AI Accuracy - Recognizes complex medical terminology, procedures, and look-alike/sound-alike medications with high precision",
+      "Built on Authoritative Clinical Standards - Developed in alignment with globally accepted emergency medicine references, including Johns Hopkins University publications and Tintinalli's Emergency Medicine",
+      "Multilingual Input with English Standardization - Supports multiple languages while automatically generating standardized English documentation for reporting and compliance",
+      "Seamless HIS / HMS / EMR Integration - Fully integratable with existing hospital systems without disrupting current workflows",
+      "Enterprise-Grade Security - End-to-End (E2E) encryption with architecture aligned to HIPAA compliance standards",
+      "Flexible Deployment Models - Available as secure cloud-based subscription or on-premise deployment for institutions requiring internal hosting"
     ]
   },
   { 
@@ -493,22 +421,23 @@ function ProductsServicesSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-products">
-            Products & Services
+            Our Solution
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-products-title">
-            What is APOC?
+            Meet APOC: Your Virtual Specialist
           </h2>
           <p className="mt-4 text-muted-foreground max-w-3xl mx-auto text-lg leading-relaxed">
-            APOC offers a revolutionary Assisted Reality medical solution that combines cutting-edge diagnostic devices, 
-            smart glasses, and industrial connectivity. Our integrated platform enables real-time patient monitoring, 
-            centralized data management, and seamless integration with existing systems.
+            APOC is a revolutionary Assisted Reality platform that connects paramedics and field doctors with 
+            specialist physicians in real-time. Through smart glasses, connected medical devices, and 5G 
+            connectivity, we turn every ambulance and remote clinic into an extension of a tertiary care hospital.
           </p>
         </AnimatedSection>
 
         {/* Problem Statement */}
         <AnimatedSection delay={0.2} className="mb-20">
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-foreground mb-8 text-center">The Problem We Solve</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-4 text-center">The Problem We Solve</h3>
+            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">This happens every day in emergency departments across India:</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 { step: "01", title: "Critical Patients", desc: "Critically ill patients in remote emergency departments" },
@@ -535,7 +464,10 @@ function ProductsServicesSection() {
 
         {/* APOC Solutions */}
         <AnimatedSection delay={0.3}>
-          <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Our Solutions</h3>
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-bold text-foreground mb-3">How APOC Changes Everything</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">Two powerful solutions designed for different scenarios — from resource-limited settings to fully equipped emergency departments.</p>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {products.map((product, i) => (
               <Card key={i} className="p-8 border-border bg-card hover-elevate" data-testid={`card-product-${i}`}>
@@ -585,7 +517,7 @@ function ProductsServicesSection() {
 }
 
 const oldProducts = [
-  { name: "APOC Lite", desc: "Compact emergency kit for first responders with essential monitoring and communication tools.", tag: "Portable", number: "01" },
+  { name: "APOC Triage One – AI-Powered Emergency Triage Documentation", desc: "Voice-to-text solution that converts physicians' spoken input into structured triage documentation in real time with medical-grade AI accuracy.", tag: "AI-Powered", number: "01" },
   { name: "APOC Go", desc: "Mobile-ready platform for on-the-go emergency care with cloud-connected diagnostics.", tag: "Mobile", number: "02" },
 ];
 
@@ -623,13 +555,14 @@ function FeaturesSection() {
     <section id="features" className="relative py-24 sm:py-32 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="mb-16">
-          <div className="max-w-xl">
-            <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-features">Core Technology</p>
+          <div className="max-w-3xl">
+            <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-features">The Technology Behind APOC</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-features-title">
-              Technology That Saves Lives
+              Built on Four Core Pillars
             </h2>
             <p className="mt-4 text-muted-foreground text-lg leading-relaxed">
-              Cutting-edge systems powering the next generation of emergency healthcare.
+              APOC isn't just smart glasses or a video call — it's a complete ecosystem that connects devices, 
+              data, and specialists into one intelligent system. Here's how we make it happen:
             </p>
           </div>
         </AnimatedSection>
@@ -760,12 +693,14 @@ function DeviceIntegrationSection() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
-          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-devices">Ecosystem</p>
+          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-devices">The APOC Ecosystem</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-devices-title">
-            Integrated Device Network
+            One Platform, Every Device
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-            Seamless connectivity across 8 medical device categories — enabling real-time data exchange and clinical intelligence.
+          <p className="mt-4 text-muted-foreground max-w-3xl mx-auto text-lg leading-relaxed">
+            The power of APOC comes from its ability to work with existing medical equipment. We've integrated 
+            with 8+ categories of medical devices — from patient monitors to ventilators — creating a unified 
+            data stream that specialists can see and act on instantly.
           </p>
         </AnimatedSection>
 
@@ -826,12 +761,13 @@ function VideoSection() {
     <section className="relative py-24 sm:py-32 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-10">
-          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-video">Walkthrough</p>
+          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-video">See It In Action</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-video-title">
-            See APOC in Action
+            From Concept to Reality
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-            India's 1st AR Enabled 5G Smart Ambulance Technology
+          <p className="mt-4 text-muted-foreground max-w-3xl mx-auto text-lg leading-relaxed">
+            Watch how APOC is already making a difference on the ground. India's first AR-enabled 5G smart ambulance 
+            is not just a prototype — it's operational, certified, and saving lives today.
           </p>
         </AnimatedSection>
 
@@ -865,7 +801,7 @@ function VideoSection() {
 const teamMembers = [
   { 
     name: "Dr Nadeem Shah", 
-    role: "Founder CEO & MD", 
+    role: "Founder & CEO", 
     initials: "NS",
     image: "/images/team/nadeem.jpeg"
   },
@@ -876,10 +812,10 @@ const teamMembers = [
     image: "/images/team/muneeb.jpeg"
   },
   { 
-    name: "Hyder Shehansha T A", 
-    role: "Director - Marketing", 
-    initials: "HS",
-    image: "/images/team/hyder.jpeg"
+    name: "Harishankar Velu", 
+    role: "Chief Technical Officer", 
+    initials: "HV",
+    image: "/images/team/harishankar.jpeg"
   },
   { 
     name: "Adithyan Satheeshkumar", 
@@ -915,7 +851,6 @@ function TeamSection() {
                     alt={member.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     onLoad={(e) => {
-                      console.log(`✅ Image loaded: ${member.image}`);
                       const target = e.target as HTMLImageElement;
                       const fallback = target.nextElementSibling as HTMLElement;
                       if (fallback) fallback.style.display = 'none';
@@ -968,6 +903,7 @@ const contactInfo = [
     title: "Email Us",
     icon: Mail,
     content: "info@theapothecary.co.in",
+    link: "mailto:info@theapothecary.co.in",
   },
 ];
 
@@ -976,12 +912,13 @@ function ContactSection() {
     <section id="contact" className="relative py-24 sm:py-32 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
-          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-contact">Get In Touch</p>
+          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-contact">Let's Connect</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-contact-title">
-            Ready to Transform Healthcare?
+            Ready to Save Lives Together?
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-            Let's discuss how APOC can elevate your emergency infrastructure.
+            Whether you're a hospital looking to upgrade emergency care, a government body planning health infrastructure, 
+            or an investor wanting to be part of healthcare's future — we'd love to hear from you.
           </p>
         </AnimatedSection>
 
@@ -1005,7 +942,7 @@ function ContactSection() {
                 {item.link ? (
                   <a 
                     href={item.link}
-                    target="_blank"
+                    target={item.link.startsWith('mailto:') ? '_self' : '_blank'}
                     rel="noopener noreferrer"
                     className="block"
                   >
@@ -1038,6 +975,10 @@ function CTASection() {
     document.body.removeChild(link);
   };
 
+  const handleScheduleMeeting = () => {
+    window.open('https://calendly.com/nadeem-sha-786', '_blank');
+  };
+
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
       <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(262, 83%, 58%) 100%)" }} />
@@ -1048,12 +989,23 @@ function CTASection() {
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <AnimatedSection>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-            Partner With Us
+            Join the Healthcare Revolution
           </h2>
-          <p className="mt-4 text-white/70 text-lg leading-relaxed max-w-xl mx-auto">
-            Join us in building the future of emergency medicine. Whether you're an investor, hospital, or government body — let's save lives together.
+          <p className="mt-4 text-white/80 text-lg leading-relaxed max-w-xl mx-auto">
+            Every partnership brings us closer to a world where geography doesn't determine the quality of 
+            emergency care. Let's build that future together.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              onClick={handleScheduleMeeting}
+              className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20" 
+              data-testid="button-cta-schedule"
+            >
+              Schedule Meeting
+              <ExternalLink className="w-4 h-4 ml-2" />
+            </Button>
             <Button 
               size="lg" 
               variant="outline" 
@@ -1078,19 +1030,27 @@ function Footer() {
     <footer className="relative border-t border-border py-12 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <a href="#hero" className="flex items-center gap-2.5">
+          <div className="flex items-center gap-4">
+            <a href="#hero" className="flex items-center gap-2.5">
+              <img 
+                src={theme === "dark" ? "/images/Logo-light.png" : "/images/Logo-Dark.png"}
+                alt="APOTHECARY Medical Tech"
+                className="h-10 w-auto object-contain"
+              />
+            </a>
+            <div className="h-8 w-px bg-border" />
             <img 
-              src={theme === "dark" ? "/images/Logo-light.png" : "/images/Logo-Dark.png"}
-              alt="APOTHECARY Medical Tech"
-              className="h-10 w-auto object-contain"
+              src="/images/Logo-Icon.png"
+              alt="APOTHECARY Icon"
+              className="h-8 w-auto object-contain opacity-60"
             />
-          </a>
+          </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
             {["About", "Products", "Solutions", "Technology", "Ecosystem", "Team", "Testimonials", "Contact"].map((link) => (
               <a
                 key={link}
-                href={`#${link === "Products" ? "products" : link === "Solutions" ? "usecases" : link === "Technology" ? "features" : link === "Ecosystem" ? "devices" : link.toLowerCase()}`}
+                href={link === "About" ? "/about-us" : link === "Testimonials" ? "/testimonials" : `#${link === "Products" ? "products" : link === "Solutions" ? "usecases" : link === "Technology" ? "features" : link === "Ecosystem" ? "devices" : link.toLowerCase()}`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-testid={`link-footer-${link.toLowerCase()}`}
               >
@@ -1112,7 +1072,7 @@ function FloatingButtons() {
   const [showEmailNotification, setShowEmailNotification] = useState(false);
 
   const handleEmailClick = () => {
-    const email = "apothecarymedicalservices@gmail.com";
+    const email = "info@theapothecary.co.in";
     const subject = "Inquiry from Apothecary Website";
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
     
@@ -1185,7 +1145,7 @@ function FloatingButtons() {
               <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
               <div>
                 <div className="font-semibold">Email Copied!</div>
-                <div className="text-sm text-white/90">apothecarymedicalservices@gmail.com</div>
+                <div className="text-sm text-white/90">info@theapothecary.co.in</div>
                 <div className="text-xs text-white/75 mt-1">Paste it in your email app</div>
               </div>
             </div>
@@ -1196,107 +1156,19 @@ function FloatingButtons() {
   );
 }
 
-const testimonials = [
-  {
-    name: "Shashi Tharoor",
-    title: "Member of Parliament",
-    image: "https://theapothecary.co.in/wp-content/uploads/2023/05/Sasi-Tharoor.jpg",
-    quote: "India's First Initiative that too from Kerala is indeed a matter of pride for me to inaugurate. Especially being a Malayalee. I wholeheartedly commend Apothecary Medical Services for their exceptional use of health technology to improve the lives of people. Their dedication to leveraging innovation for the betterment of society, while upholding ethical principles, is truly laudable. Through their pioneering efforts, Apothecary has demonstrated that technology, when used responsibly and with compassion, has the potential to transform healthcare and positively impact countless lives.",
-    rating: 5
-  },
-  {
-    name: "Dr. Azad Moopen",
-    title: "Chairman, Aster DM Healthcare",
-    image: "",
-    quote: "Aster Group takes great pride in the association with Apothecary Medical Services led by Dr Nadeem. The innovation they have brought to emergency medicine aligns perfectly with our mission to deliver quality healthcare that is accessible, affordable, and compassionate. Apothecary's contributions have not only strengthened the emergency healthcare services within the Aster Group but have also raised the bar for the entire industry, inspiring others to strive for excellence.",
-    rating: 5
-  },
-  {
-    name: "Farhan Yasin",
-    title: "Vice President, Aster India",
-    image: "https://theapothecary.co.in/wp-content/uploads/2023/05/Farhan-Yasin.jpg",
-    quote: "I am delighted to share my heartfelt appreciation for Apothecary and the immense pride I feel for having given them the opportunity to bring their dream to life. Their commitment to empowering individuals and nurturing innovation is truly admirable. I am incredibly proud to be associated with Apothecary and to be a reason to share their vision with the world. Together, we are making a difference and ensuring that no dream goes unheard.",
-    rating: 5
-  },
-  {
-    name: "Sreekandan Nair",
-    title: "Managing Director, Flowers Channel",
-    image: "",
-    quote: "I am delighted to express my sincere appreciation for the incredible work done by Dr. Nadeem and his team at Apothecary in bringing a technology start-up that caters to people in remote areas, especially in the context of high road accidents. Their dedication to utilizing technology for the betterment of healthcare in these underserved regions is truly commendable.",
-    rating: 5
-  }
-];
-
-function TestimonialsSection() {
-  return (
-    <section id="testimonials" className="relative py-24 sm:py-32 overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-16">
-          <p className="text-sm font-medium text-muted-foreground tracking-wide uppercase mb-3" data-testid="badge-testimonials">
-            Testimonials
-          </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight" data-testid="text-testimonials-title">
-            What Leaders Say
-          </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-            Hear from industry leaders and healthcare pioneers about their experience with APOC
-          </p>
-        </AnimatedSection>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((testimonial, i) => (
-            <AnimatedSection key={i} delay={i * 0.1}>
-              <Card className="p-6 border-border bg-card hover-elevate h-full flex flex-col" data-testid={`card-testimonial-${i}`}>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="flex-shrink-0">
-                    {testimonial.image ? (
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-border"
-                      />
-                    ) : (
-                      <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-foreground font-semibold text-xl">
-                        {testimonial.name.split(' ').map(n => n[0]).join('')}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground text-lg">{testimonial.name}</h3>
-                    <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                    <div className="flex gap-1 mt-2">
-                      {[...Array(testimonial.rating)].map((_, idx) => (
-                        <span key={idx} className="text-yellow-500">★</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-muted-foreground leading-relaxed text-sm flex-1">
-                  "{testimonial.quote}"
-                </p>
-              </Card>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <HeroSection />
-      <AboutSection />
-      <StatsBar />
+      <MissionSection />
       <ProductsServicesSection />
+      <StatsBar />
       <UseCasesSection />
       <FeaturesSection />
       <DeviceIntegrationSection />
       <VideoSection />
       <TeamSection />
-      <TestimonialsSection />
       <ContactSection />
       <CTASection />
       <Footer />
